@@ -1,18 +1,148 @@
---[[ AntiCheat Bypasser ]]--
-game.Players.LocalPlayer.UserId = 47983795
+wait()
+
+if _G.AntiCheatDisabled == nil then
+	_G.AntiCheatDisabled = true
+end
+
+local namecall; namecall = hookmetamethod(game,"__namecall",function(self,...)
+	local args = {...}
+	local method = getnamecallmethod()
+
+	if _G.AntiCheatDisabled ~= nil and _G.AntiCheatDisabled == true then
+		if method == "FireServer" and self.Name == "BanExploiter" then 
+			for i,v in pairs(args) do
+				print("ARG ("..tonumber(i).."): ".. v)
+                wait()
+			end
+			return 
+		elseif method == "GetChildren" and self.Name == "Remotes" then 
+			return {}
+		end 
+	end
+
+	return namecall(self,unpack(args))
+end)
 
 wait()
 
-local namecall; namecall = hookmetamethod(game,"__namecall",function(self,...)
-    local args = {...}
-    local method = getnamecallmethod()
+print("loaded")
 
-    if method == "FireServer" and self.Name == "BanExploiter" then 
-        return 
-    elseif method == "GetChildren" and self.Name == "Remotes" then 
-        return {}
-    end 
+local oldUserID = game.Players.LocalPlayer.UserId
 
-    return namecall(self,unpack(args))
+local S0ULZFallen = Instance.new("ScreenGui")
+local AntiAfk = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local Title = Instance.new("TextLabel")
+local Model = Instance.new("TextLabel")
+local ToggleAntiCheat = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+
+S0ULZFallen.Name = "S0ULZFallen"
+S0ULZFallen.Parent = game.Players.LocalPlayer.PlayerGui
+S0ULZFallen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+AntiAfk.Name = "AntiAfk"
+AntiAfk.Parent = S0ULZFallen
+AntiAfk.BackgroundColor3 = Color3.fromRGB(34, 68, 180)
+AntiAfk.Position = UDim2.new(0.350245506, 0, 0.284053147, 0)
+AntiAfk.Size = UDim2.new(0.298690677, 0, 0.430232555, 0)
+
+UICorner.Parent = AntiAfk
+
+Title.Name = "Title"
+Title.Parent = AntiAfk
+Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1.000
+Title.Position = UDim2.new(0.115068495, 0, 0.0270270277, 0)
+Title.Size = UDim2.new(0.772602737, 0, 0.200772196, 0)
+Title.Font = Enum.Font.SourceSansBold
+Title.Text = "FALLEN ANTI CHEAT DISABLER"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextScaled = true
+Title.TextSize = 14.000
+Title.TextWrapped = true
+
+Model.Name = "Model"
+Model.Parent = AntiAfk
+Model.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Model.BackgroundTransparency = 1.000
+Model.Position = UDim2.new(0.331506848, 0, 0.281853288, 0)
+Model.Size = UDim2.new(0.336986303, 0, 0.115830116, 0)
+Model.Font = Enum.Font.SourceSansBold
+Model.Text = "MODE: SAFE"
+Model.TextColor3 = Color3.fromRGB(255, 255, 255)
+Model.TextScaled = true
+Model.TextSize = 14.000
+Model.TextWrapped = true
+
+ToggleAntiCheat.Name = "ToggleAntiCheat"
+ToggleAntiCheat.Parent = AntiAfk
+ToggleAntiCheat.BackgroundColor3 = Color3.fromRGB(51, 45, 207)
+ToggleAntiCheat.Position = UDim2.new(0.156164378, 0, 0.698841691, 0)
+ToggleAntiCheat.Size = UDim2.new(0.687671244, 0, 0.216216221, 0)
+ToggleAntiCheat.Font = Enum.Font.SourceSansBold
+ToggleAntiCheat.Text = "TOGGLE ANTI CHEAT"
+ToggleAntiCheat.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleAntiCheat.TextScaled = true
+ToggleAntiCheat.TextSize = 14.000
+ToggleAntiCheat.TextWrapped = true
+
+UICorner_2.Parent = ToggleAntiCheat
+
+local oldFrameSize = AntiAfk.Size
+
+AntiAfk.Size = UDim2.new(0,0,0,0)
+ToggleAntiCheat.TextTransparency = 1
+Model.TextTransparency = 1
+Title.TextTransparency = 1
+AntiAfk:TweenSize(oldFrameSize,Enum.EasingDirection.InOut,Enum.EasingStyle.Quad,2.5)
+
+wait(2.51)
+game:GetService("TweenService"):Create(ToggleAntiCheat,TweenInfo.new(1.3),{TextTransparency = 0}):Play()
+game:GetService("TweenService"):Create(Model,TweenInfo.new(1.3),{TextTransparency = 0}):Play()
+game:GetService("TweenService"):Create(Title,TweenInfo.new(1.3),{TextTransparency = 0}):Play()
+wait()
+for _,v in pairs(AntiAfk:GetChildren()) do
+	if not v:FindFirstChildOfClass("UIStroke") then
+		if v:IsA("TextLabel") or v:IsA("TextButton") then
+			local newUIStroke = Instance.new("UIStroke",v)
+			newUIStroke.Thickness = 3
+			newUIStroke.Transparency = 0
+			newUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		end
+	end
+end
+
+ToggleAntiCheat.MouseButton1Click:Connect(function()
+	if _G.AntiCheatDisabled == nil then
+		_G.AntiCheatDisabled = true
+	end
+	
+	_G.AntiCheatDisabled = not _G.AntiCheatDisabled
+	
+	if _G.AntiCheatDisabled == true then
+		Model.Text = "MODE: SAFE"
+		game.Players.LocalPlayer.UserId = 47983795
+	else
+		Model.Text = "MODE: NOT SAFE"
+		game.Players.LocalPlayer.UserId = oldUserID
+	end
 end)
---[[ AntiCheat Bypasser ]]--
+
+function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+
+local zigzagcounter = 0
+
+while wait() do
+	local zigcolor = Color3.fromHSV(zigzag(zigzagcounter),1,1)
+	for _,v in pairs(AntiAfk:GetChildren()) do
+		if v:FindFirstChildOfClass("UIStroke") then
+			if v:IsA("TextLabel") or v:IsA("TextButton") then
+				v:FindFirstChildOfClass("UIStroke").Color = zigcolor
+			end
+		end
+	end
+	zigzagcounter = zigzagcounter + 0.001
+end
+
+print("fully loaded anti cheat disabler")

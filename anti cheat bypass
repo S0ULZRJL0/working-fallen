@@ -5,7 +5,6 @@ if _G.AntiCheatDisabled == nil then
 end
 
 game.Players.LocalPlayer.UserId = 47983795
-
 local namecall; namecall = hookmetamethod(game,"__namecall",function(self,...)
 	local args = {...}
 	local method = getnamecallmethod()
@@ -13,8 +12,7 @@ local namecall; namecall = hookmetamethod(game,"__namecall",function(self,...)
 	if _G.AntiCheatDisabled ~= nil and _G.AntiCheatDisabled == true then
 		if method == "FireServer" and self.Name == "BanExploiter" then 
 			for i,v in pairs(args) do
-				print("ARG ("..tonumber(i).."): ".. v)
-                wait()
+				print("arg ("..tonumber(i).."): ".. v)
 			end
 			return 
 		elseif method == "GetChildren" and self.Name == "Remotes" then 
@@ -48,6 +46,8 @@ AntiAfk.Parent = S0ULZFallen
 AntiAfk.BackgroundColor3 = Color3.fromRGB(34, 68, 180)
 AntiAfk.Position = UDim2.new(0.350245506, 0, 0.284053147, 0)
 AntiAfk.Size = UDim2.new(0.298690677, 0, 0.430232555, 0)
+AntiAfk.Active = true
+AntiAfk.Draggable = true
 
 UICorner.Parent = AntiAfk
 
@@ -119,9 +119,9 @@ ToggleAntiCheat.MouseButton1Click:Connect(function()
 	if _G.AntiCheatDisabled == nil then
 		_G.AntiCheatDisabled = true
 	end
-	
+
 	_G.AntiCheatDisabled = not _G.AntiCheatDisabled
-	
+
 	if _G.AntiCheatDisabled == true then
 		Model.Text = "MODE: SAFE"
 		game.Players.LocalPlayer.UserId = 47983795

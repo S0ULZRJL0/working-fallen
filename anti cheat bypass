@@ -4,6 +4,8 @@ if _G.AntiCheatDisabled == nil then
 	_G.AntiCheatDisabled = true
 end
 
+game.Players.LocalPlayer.UserId = 47983795
+
 local namecall; namecall = hookmetamethod(game,"__namecall",function(self,...)
 	local args = {...}
 	local method = getnamecallmethod()

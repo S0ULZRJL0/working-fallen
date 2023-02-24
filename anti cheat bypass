@@ -16,4 +16,4 @@ local namecall; namecall = hookmetamethod(game,"__namecall",function(self,...)
     return namecall(self,unpack(args))
 end)
 --[[ AntiCheat Bypasser ]]--
-print("loaded anticheat")
+print("loaded anticheat disabler")

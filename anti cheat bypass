@@ -38,7 +38,7 @@ local ToggleAntiCheat = Instance.new("TextButton")
 local UICorner_2 = Instance.new("UICorner")
 
 S0ULZFallen.Name = "S0ULZFallen"
-S0ULZFallen.Parent = game.Players.LocalPlayer.PlayerGui
+S0ULZFallen.Parent = game.CoreGui
 S0ULZFallen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 AntiAfk.Name = "AntiAfk"
